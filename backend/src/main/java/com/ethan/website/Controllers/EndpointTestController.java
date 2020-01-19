@@ -1,20 +1,34 @@
 package com.ethan.website.Controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.HashMap;
-import java.util.Map;
+import com.ethan.website.DTO.Customers;
+import com.ethan.website.DTO.Endpoints;
+import com.ethan.website.repositories.CustomerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
+//@RequestMapping("/endpoints")
 public class EndpointTestController {
 
-    @RequestMapping("/endpoint")
-    public Map<String, String> index() {
-        Map<String, String> map = new HashMap<>();
-        map.put("Name", "Ethan");
-        map.put("Age", "19");
+    @Autowired
+    private CustomerRepo customerRepo;
 
-        return map;
+    @GetMapping("/")
+    public Endpoints index() {
+        return new Endpoints("Ethan", 19);
+    }
+
+
+    @GetMapping("/ethan")
+    public Endpoints index2() {
+        return new Endpoints("Ethan", 20);
+    }
+
+    @PutMapping(path = "/customers", consumes = "application/json", produces = "application/json")
+    public void customer(@RequestBody Customers customer) {
+        System.out.println(customer);
+        customerRepo.save(customer);
     }
 
 }
