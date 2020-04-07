@@ -36,3 +36,49 @@
     transform: rotate(360deg);
   }
 }
+
+/* #login, #loggedin {
+  display: none;
+}
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 500px;
+} */
+
+.spotify-button {
+  background-color: #1DB954;
+  border: none;
+  color: white;
+  padding: 40px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 100px;
+  margin-left: 27%;
+  float: left;
+  font-size: 25px;
+}
+
+.Stream-Button {
+  width: 50%;
+  float: left;
+}
+
+.Listen-Button {
+  width: 50%;
+  display:inline-block;
+}
+
+.spotify-button:hover {
+  background-color: rgb(33, 204, 93);
+  transform:scale(1.5, 1.5);
+}
+
+.Spotify {
+  padding: 23%;
+  overflow: hidden;
+  background-image: linear-gradient(grey, black);
+}
