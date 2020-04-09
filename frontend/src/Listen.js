@@ -1,47 +1,97 @@
+import GoogleMapReact from 'google-map-react';
 import React, { Component } from 'react';
 import './App.css';
+import { render } from '@testing-library/react';
 
-const Listen = () => {
+const paramsKey = "spotify_auth_params";
+const userInfoKey = "spotify_user_info";
+const positionKey = 'window_position';
 
-  const paramsKey = "spotify_auth_params";
-  const userInfoKey = "spotify_user_info";
-  const positionKey = 'window_position';
+const params = JSON.parse(localStorage.getItem(paramsKey));
+const userInfo = JSON.parse(localStorage.getItem(userInfoKey));
+const position = JSON.parse(localStorage.getItem(positionKey));
 
-  async function getPlayer(access_token) {
-    const response = await fetch('https://api.spotify.com/v1/me/player', {
-      Accepts: 'application/json',
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + access_token
-      }
-    })
-    
-    try {
-      console.log(await response.json());
-    } catch {
-      console.log("nothing is playing");
-    }
+var allStreamers = {};
+
+class Listen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.streamers = [];
   }
 
-  var params = JSON.parse(localStorage.getItem(paramsKey));
-  var userInfo = JSON.parse(localStorage.getItem(userInfoKey));
-  var position = JSON.parse(localStorage.getItem(positionKey))
+  update = (streamers) => {
+    this.streamers = streamers;
+    this.forceUpdate();
+  }
 
-  console.log(params);
-  console.log(userInfo);
-  console.log(position);
+  handleTimer = (s) => {
+    setInterval(function() {
+      get().then(s.update);
+    }, 5000);
+  }
 
-  getPlayer(params.access_token);
+  componentDidMount() {
+    get().then(this.update);
+    this.handleTimer(this);
+  }
 
-  return (
-    <div className="Spotify">
-      <div className="container">
-        <div id="login">
-          <h1>This is an example of the Implicit Grant flow</h1>
-        </div>
+  render() {
+    return (
+      <div className="Listen" style={{ height: '100vh', width: '100%' }}>
+        <GoogleMapReact
+            bootstrapURLKeys={{ key: "AIzaSyBJ07SJOFqDLlz7bkQSicvzB1ZUsyPJXWw" }}
+            center={{ lat: position.latitude, lng: position.longitude }}
+            zoom={17}
+            hoverDistance={20}>
+              <div className="currentUserMarker" lat={ position.latitude } lng={ position.longitude }></div>
+              { this.streamers }
+          </GoogleMapReact>
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+const putHandler = async (selectedStreamer) => {
+  await fetch('https://api.spotify.com/v1/me/player/play', {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + params.access_token
+    },
+    body: JSON.stringify({
+      uris: [selectedStreamer.currentSong.songUri],
+      position_ms: selectedStreamer.currentSong.progress
+    })
+  })
+}
+
+const handleClick = (e) => {
+  var selectedStreamer = allStreamers[e.target.getAttribute("streamerid")];
+  putHandler(selectedStreamer);
+}
+
+async function get() {
+  const response = await fetch('http://localhost:8080/spotify/listener/streamers', {'Accepts': 'application/json'})
+  if (response && response.ok && response.body) {
+    var streamers = await response.json();
+
+    for (var i = 0; i < streamers.length; ++i) {
+      allStreamers[streamers[i].id] = streamers[i];
+    }
+
+    return streamers.map((streamer) => 
+      <div className="otherUsersMarker" onClick={handleClick} lat={streamer.latitude} lng={streamer.longitude} streamerId={streamer.id}>{streamer.username}</div>
+    );
+  } else {
+    console.log("DUMB");
+  }
+}
+
+{/* <div className="otherUsersMarker" lat={position.latitude + 0.001} lng={position.longitude + 0.001}>E</div>
+<div className="otherUsersMarker" lat={position.latitude - 0.001} lng={position.longitude + 0.001}>S</div>
+<div className="otherUsersMarker" lat={position.latitude + 0.001} lng={position.longitude - 0.001}>J</div>
+<div className="otherUsersMarker" lat={position.latitude - 0.001} lng={position.longitude - 0.001}>A</div> */}
 
 export default Listen;

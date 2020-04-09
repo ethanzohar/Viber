@@ -47,6 +47,11 @@
   width: 500px;
 } */
 
+#root {
+  height: 100%;
+  margin: 0;
+}
+
 .spotify-button {
   background-color: #1DB954;
   border: none;
@@ -80,5 +85,78 @@
 .Spotify {
   padding: 23%;
   overflow: hidden;
-  background-image: linear-gradient(grey, black);
+}
+
+.Stream {
+  height: 100%;
+  margin: 0;
+}
+
+.MainAlbum {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.MusicNavigation {
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display:flex;
+  justify-content: space-around;
+  width:60%;
+}
+
+.MusicNavigationButton {
+  font-size: 100px;
+  background: none;
+  border: none;
+}
+
+.currentUserMarker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: -10px;
+  top: -10px;
+
+  border-radius: 20px;
+  background-color: #00a3e0;
+  padding: 4px;
+}
+
+.otherUsersMarker {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: -20px;
+  top: -20px;
+
+  border: 3px solid black;
+  border-radius: 40px;
+  background-color: orange;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.otherUsersMarker:hover {
+  transform:scale(1.5, 1.5);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(#d4bcd4, black);
 }

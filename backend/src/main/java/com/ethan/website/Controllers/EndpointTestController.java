@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-//@RequestMapping("/endpoints")
+@RequestMapping("/endpoints")
 public class EndpointTestController {
 
     @Autowired
