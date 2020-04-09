@@ -17,7 +17,7 @@ const SpotifyLogin = () => {
 
   const buttonPress = () => {
       var client_id = '53a649e024504a91898d19070924df56'; // Your client id
-      var redirect_uri = window.location.origin + '/spotify/login/redirect'; // Your redirect uri
+      var redirect_uri = 'http://localhost:8081/spotify/login/redirect'; // Your redirect uri
 
       var state = generateRandomString(16);
 
