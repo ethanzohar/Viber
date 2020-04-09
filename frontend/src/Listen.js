@@ -74,7 +74,7 @@ const handleClick = (e) => {
 }
 
 async function get() {
-  const response = await fetch('http://3.12.39.26:8080/spotify/listener/streamers', {'Accepts': 'application/json'})
+  const response = await fetch('https://api.ethanzohar.com/spotify/listener/streamers', {'Accepts': 'application/json'})
   if (response && response.ok && response.body) {
     var streamers = await response.json();
 

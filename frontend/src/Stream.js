@@ -30,6 +30,7 @@ class Stream extends Component {
       getCurrentSong(params.access_token).then(s.update);
     }, 2000);
   }
+  
   componentDidMount() {
     getCurrentSong(params.access_token).then(this.update);
     this.handleTimer(this);
@@ -144,7 +145,7 @@ async function getPlayer(access_token) {
 }
 
 async function post(currentStreamingSong) {
-  await fetch('http://3.12.39.26:8080/spotify/streamer/new', {
+  await fetch('https://api.ethanzohar.com/spotify/streamer/new', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
