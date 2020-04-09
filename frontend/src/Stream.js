@@ -144,7 +144,7 @@ async function getPlayer(access_token) {
 }
 
 async function post(currentStreamingSong) {
-  await fetch(window.location.origin + '/spotifyBackend/streamer/new', {
+  await fetch('localhost:8080/spotify/streamer/new', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
