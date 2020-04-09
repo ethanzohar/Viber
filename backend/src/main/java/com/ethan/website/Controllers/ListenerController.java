@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/spotify/listener")
+@RequestMapping("/spotifyBackend/listener")
 public class ListenerController {
 
     @Autowired

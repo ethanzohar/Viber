@@ -74,7 +74,7 @@ const handleClick = (e) => {
 }
 
 async function get() {
-  const response = await fetch(window.location.origin + '/spotify/listener/streamers', {'Accepts': 'application/json'})
+  const response = await fetch(window.location.origin + '/spotifyBackend/listener/streamers', {'Accepts': 'application/json'})
   if (response && response.ok && response.body) {
     var streamers = await response.json();
 
