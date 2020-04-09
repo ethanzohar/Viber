@@ -1,6 +1,7 @@
 import GoogleMapReact from 'google-map-react';
 import React, { Component } from 'react';
 import './App.css';
+import { GOOGLE_API_KEY } from './keys';
 import { render } from '@testing-library/react';
 
 const paramsKey = "spotify_auth_params";
@@ -40,7 +41,7 @@ class Listen extends Component {
     return (
       <div className="Listen" style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-            bootstrapURLKeys={{ key: "AIzaSyBJ07SJOFqDLlz7bkQSicvzB1ZUsyPJXWw" }}
+            bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
             center={{ lat: position.latitude, lng: position.longitude }}
             zoom={17}
             hoverDistance={20}>

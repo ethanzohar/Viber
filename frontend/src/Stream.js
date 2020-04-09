@@ -24,9 +24,15 @@ class Stream extends Component {
     this.forceUpdate();
     post(currentSong);
   }
-
+  
+  handleTimer = (s) => {
+    setInterval(function() {
+      getCurrentSong(params.access_token).then(s.update);
+    }, 2000);
+  }
   componentDidMount() {
     getCurrentSong(params.access_token).then(this.update);
+    this.handleTimer(this);
   }
 
    next = async (s) => {
