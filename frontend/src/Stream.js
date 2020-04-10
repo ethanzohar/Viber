@@ -145,7 +145,7 @@ async function getPlayer(access_token) {
 }
 
 async function post(currentStreamingSong) {
-  await fetch('https://api.ethanzohar.com/spotify/streamer/new', {
+  await fetch('/spotify/streamer/new', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

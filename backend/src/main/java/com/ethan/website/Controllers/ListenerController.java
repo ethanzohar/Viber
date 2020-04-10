@@ -24,6 +24,7 @@ public class ListenerController {
 
     @GetMapping("/streamers")
     public List<Streamer> getStreamers() {
+        System.out.println("trying to get streamers");
         return spotifyRepo.findAll();
     }
 
