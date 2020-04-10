@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/spotify/streamer")
+@RequestMapping("/api/spotify/streamer")
 public class StreamerController {
 
     @Autowired
