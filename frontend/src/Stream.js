@@ -16,13 +16,15 @@ class Stream extends Component {
 
     this.albumImage = unknownAlbum;
     this.isPlaying = false;
+    this.lat = position.latitude;
+    this.long = position.longitude;
   }
 
   update = (currentSong) => {
     this.albumImage = currentSong.item.album.images[0].url;
     this.isPlaying = currentSong.is_playing;
     this.forceUpdate();
-    post(currentSong);
+    post(currentSong, this);
   }
   
   handleTimer = (s) => {
@@ -108,6 +110,11 @@ class Stream extends Component {
     this.play(this);
   }
 
+  updatePosition = (position) => {
+    this.lat = position.coords.latitude;
+    this.long = position.coords.longitude;
+  }
+
   render() {
     return (
       <div className="Stream">
@@ -144,8 +151,8 @@ async function getPlayer(access_token) {
   }
 }
 
-async function post(currentStreamingSong) {
-  console.log("trying to post");
+async function post(currentStreamingSong, s) {
+  getLocation(s);
   await fetch('/api/spotify/streamer/new', {
     method: 'POST',
     headers: {
@@ -157,8 +164,8 @@ async function post(currentStreamingSong) {
       username: userInfo.display_name,
       email: userInfo.email,
       premium: (userInfo.product === "premium"),
-      latitude: position.latitude,
-      longitude: position.longitude,
+      latitude: s.lat,
+      longitude: s.long,
       currentSong: {
         id: currentStreamingSong.item.id,
         progress: currentStreamingSong.progress_ms,
@@ -173,6 +180,34 @@ async function post(currentStreamingSong) {
       }
     })
   })
+}
+
+function getLocation(s) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(s.updatePosition, showError);
+  } else { 
+    console.log("Geolocation is not supported by this browser.");
+    window.location = window.location.origin + "/error";
+  }
+}
+
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      console.log("User denied the request for Geolocation.");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      console.log("Location information is unavailable.");
+      break;
+    case error.TIMEOUT:
+      console.log("The request to get user location timed out.");
+      break;
+    case error.UNKNOWN_ERROR:
+      console.log("An unknown error occurred.");
+      break;
+  }
+
+  window.location = window.location.origin + "/error";
 }
 
 async function getCurrentSong(access_token) {
