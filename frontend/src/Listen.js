@@ -13,11 +13,13 @@ const userInfo = JSON.parse(localStorage.getItem(userInfoKey));
 const position = JSON.parse(localStorage.getItem(positionKey));
 
 var allStreamers = {};
+var me;
 
 class Listen extends Component {
   constructor(props) {
     super(props);
 
+    this.selectedStreamer = {};
     this.streamers = [];
   }
 
@@ -28,13 +30,21 @@ class Listen extends Component {
 
   handleTimer = (s) => {
     setInterval(function() {
-      get().then(s.update);
+      get().then((result) => {
+        s.update(result);
+
+        if (s.selectedStreamer != {}) {
+          me.selectedStreamer = allStreamers[me.selectedStreamer.id];
+          putHandler(s.selectedStreamer);
+        }
+      });
     }, 5000);
   }
 
   componentDidMount() {
     get().then(this.update);
     this.handleTimer(this);
+    me = this;
   }
 
   render() {
@@ -69,12 +79,12 @@ const putHandler = async (selectedStreamer) => {
 }
 
 const handleClick = (e) => {
-  var selectedStreamer = allStreamers[e.target.getAttribute("streamerid")];
-  putHandler(selectedStreamer);
+  me.selectedStreamer = allStreamers[e.target.getAttribute("streamerid")];
+  putHandler(me.selectedStreamer);
 }
 
-async function get() {
-  const response = await fetch('/api/spotify/listener/streamers', {'Accepts': 'application/json'})
+async function get(s) {
+  const response = await fetch('/api/spotify/listener/streamers?id=' + userInfo.id, {'Accepts': 'application/json'})
   if (response && response.ok && response.body) {
     var streamers = await response.json();
 
@@ -89,10 +99,5 @@ async function get() {
     console.log("DUMB");
   }
 }
-
-{/* <div className="otherUsersMarker" lat={position.latitude + 0.001} lng={position.longitude + 0.001}>E</div>
-<div className="otherUsersMarker" lat={position.latitude - 0.001} lng={position.longitude + 0.001}>S</div>
-<div className="otherUsersMarker" lat={position.latitude + 0.001} lng={position.longitude - 0.001}>J</div>
-<div className="otherUsersMarker" lat={position.latitude - 0.001} lng={position.longitude - 0.001}>A</div> */}
 
 export default Listen;

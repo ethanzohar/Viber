@@ -17,15 +17,9 @@ public class ListenerController {
     @Autowired
     private SpotifyRepo spotifyRepo;
 
-//    @GetMapping("/getUsers")
-//    public List<Streamer> getNearbyStreamers() {
-//        return
-//    }
-
     @GetMapping("/streamers")
-    public List<Streamer> getStreamers() {
-        System.out.println("trying to get streamers");
-        return spotifyRepo.findAll();
+    public List<Streamer> getStreamers(@RequestParam String id) {
+        return spotifyRepo.findAllStreamersOtherThanMe(id);
     }
 
 }

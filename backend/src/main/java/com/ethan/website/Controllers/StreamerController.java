@@ -15,7 +15,7 @@ public class StreamerController {
 
     @PostMapping(path = "/new", consumes = "application/json", produces = "application/json")
     public void newStreamer(@RequestBody Streamer streamer) {
-        System.out.println(streamer);
+        streamer.setTimestamp(System.currentTimeMillis());
         spotifyRepo.save(streamer);
     }
 }

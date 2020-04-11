@@ -12,6 +12,7 @@ public class Streamer {
     public Double latitude;     // position.latitude
     public Double longitude;    // position.longitude
     public Song currentSong;    // currentSong
+    public Long timestamp = 0L;
 
     public Streamer() {}
 
@@ -25,6 +26,10 @@ public class Streamer {
         this.currentSong = currentSong;
     }
 
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "Streamer{" +
@@ -35,6 +40,7 @@ public class Streamer {
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", currentSong=" + currentSong +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }

@@ -18,9 +18,15 @@ class Stream extends Component {
     this.isPlaying = false;
     this.lat = position.latitude;
     this.long = position.longitude;
+    this.songName = "";
+    this.artists = "";
+    this.albumName = "";
   }
 
   update = (currentSong) => {
+    this.songName = currentSong.item.name;
+    this.artists = currentSong.item.artists.map((artist) => artist.name).join(", ");
+    this.albumName = currentSong.item.album.name;
     this.albumImage = currentSong.item.album.images[0].url;
     this.isPlaying = currentSong.is_playing;
     this.forceUpdate();
@@ -121,6 +127,11 @@ class Stream extends Component {
         <div className="MainSongInformation">
           <div className="MainAlbum">
             <img id="main-album" className="album-cover" src={this.albumImage} width="500"></img>
+          </div>
+          <div className="SongInfoDiv">
+            <h3 className="SongInfo" id="SongName">{this.songName}</h3>
+            <h3 className="SongInfo" id="Artists">{this.artists}</h3>
+            <h3 className="SongInfo" id="AlbumName">{this.albumName}</h3>
           </div>
         </div>
   
