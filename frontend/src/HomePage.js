@@ -71,7 +71,7 @@ class HomePage extends Component {
               <h2 className="SectionHeader">How I show them off</h2>
                 <section className="InnerSection">
                   <h2 className="InnerHeader">Live Screen Sharing Service (July 2019 - September 2019)</h2>
-                  <a className="AboutMeLink" href="https://www.screenshare.pro">screenshare.pro</a>
+                  <a className="AboutMeLink" href="https://www.screenshare.pro" target="_blank">screenshare.pro</a>
                   <p className="BodyText">Aftering working on some group projects with friends I found that there was no good solution to simple screen 
                   sharing. All sites or applications would require downloads, logins, and friend requests to get working, but I wanted something 
                   simpler. So I made it! This was my first "large scale" application that was distributed online so I learned a lot. I learned 
@@ -86,7 +86,7 @@ class HomePage extends Component {
                 </section>
                 <section className="InnerSection">
                   <h2 className="InnerHeader">Online Pokémon Battle Simulator (May 2018 - July 2018)</h2>
-                  <a className="AboutMeLink" href="github.com/Computer-Kids-Club/pokeman">github.com/Computer-Kids-Club/pokeman</a>
+                  <a className="AboutMeLink" href="https://www.github.com/Computer-Kids-Club/pokeman" target="_blank">github.com/Computer-Kids-Club/pokeman</a>
                   <p className="BodyText">For my final project of my highschool career my friends and I decided to go all out. We went with the idea 
                   of making a complete clone of Pokemon Showdown with local multiplayer. This project taught me so much and was one of the main sources 
                   for my love of programming. I used websockets for the first time ever, I used a separate frontend and backend written in different 
