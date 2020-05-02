@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter } from "react-router-dom";
-import BaseApp from "./BaseApp";
+import HomePage from "./HomePage";
 import Endpoints from "./Endpoints";
 import SpotifyLogin from "./SpotifyLogin";
 import Spotify from "./Spotify";
@@ -10,9 +10,11 @@ import Error from "./Error";
 import SpotifyLoginRedirect from "./SpotifyLoginRedirect";
 
 function App() {
+  document.title = "Ethan Zohar"
+
   return (
     <BrowserRouter>
-      <Route exact path="/" component={BaseApp}></Route>
+      <Route exact path="/" component={HomePage}></Route>
       <Route exact path="/endpoints" component={Endpoints}></Route>
       <Route exact path="/spotify" component={Spotify}></Route>
       <Route exact path="/spotify/login" component={SpotifyLogin}></Route>
