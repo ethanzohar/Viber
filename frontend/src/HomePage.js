@@ -16,6 +16,7 @@ class HomePage extends Component {
             <a href="https://linkedin.com/in/ethan-zohar" target="_blank"><img src={linkedin} /></a>
           </div>
           <h3 className="About">Software Engineering @ University of Waterloo</h3>
+          <h4 className="About">ethan.zohar@uwaterloo.ca | 647-980-2177</h4>
         </header>
         <main className="App-main">
           <section>
